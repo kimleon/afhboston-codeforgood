@@ -1,0 +1,19 @@
+extends base
+
+block extra-headers
+  script(src='/static/dropzone/dist/min/dropzone.min.js')
+
+  link(rel='stylesheet', href='/static/css/index.css')
+  script(src='/static/js/index.js')
+
+  script(src='/static/sweetalert/dist/sweetalert.min.js')
+  link(rel='stylesheet', href='/static/sweetalert/dist/sweetalert.css')
+
+block content
+  div.row
+    div.col-sm-8.col-sm-offset-2
+      a(href="http://xfair.io")
+        img(class="logo" src="/static/img/logo.svg"
+               onerror="this.onerror=null; this.src='/static/img/logo.png'")
+      h2 RESUME DROP
+      form(action="/upload", class="dropzone", id="resume-dropzone")
