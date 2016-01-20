@@ -5,7 +5,7 @@ var Terms = require('../mongoose/terms');
 var Students = require('../mongoose/students');
 var utils = require('../utils/utils');
 
-var controller = require('../controller/terms-controller');
+var controller = require('../controllers/terms-controller');
 
 // GET all terms
 router.get('/', function (req, res) {
