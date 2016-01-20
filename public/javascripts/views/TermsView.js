@@ -1,4 +1,4 @@
-window.ReadView = Backbone.View.extend({
+window.TermsView = Backbone.View.extend({
 
   initialize: function () {
     this.render();

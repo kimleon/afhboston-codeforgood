@@ -12,7 +12,7 @@ var AppRouter = Backbone.Router.extend({
   },
 
   upload: function () {
-    $('#content').html(new UploadView().el);
+    $('#content').html(new TermsView().el);
   },
 
   // read: function () {
@@ -32,7 +32,7 @@ var AppRouter = Backbone.Router.extend({
   }
 });
 
-utils.loadTemplate(["CheckView", "DownloadView", "ReadView", "UploadView"], function() {
+utils.loadTemplate(["StudentsView", "TermsView"], function() {
   app = new AppRouter();
   Backbone.history.start();
 });
