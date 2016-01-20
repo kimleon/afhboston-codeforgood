@@ -1,16 +1,28 @@
 window.StudentsView = Backbone.View.extend({
 
-  initialize: function () {
+  initialize: function(options) {
+    this.student = options.student;
     this.render();
   },
 
-  render: function () {
+  render: function() {
     $(this.el).html(this.template());
     return this;
   },
 
-  events:  {
-    // "click .end-button":"endParty",
+  events: {
+    "click #new-student": "newStudent",
+    "click #update-student": "updateStudent",
+  },
+
+  /* Button click functions */
+
+  newStudent: function() {
+
+  },
+
+  updateStudent: function() {
+
   },
 
   // endParty: function(e) {

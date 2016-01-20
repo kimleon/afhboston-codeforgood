@@ -8,26 +8,26 @@ var AppRouter = Backbone.Router.extend({
     "*notFound": "notFound",
   },
 
-  initialize: function () {
+  initialize: function() {
   },
 
-  upload: function () {
+  upload: function() {
     $('#content').html(new TermsView().el);
   },
 
-  // read: function () {
+  // read: function() {
   //   $('#content').html(new ReadView().el);
   // },
 
-  // check: function () {
+  // check: function() {
   //   $('#content').html(new CheckView().el);
   // },
 
-  // download: function () {
+  // download: function() {
   //   $('#content').html(new DownloadView().el);
   // },
 
-  notFound: function () {
+  notFound: function() {
     $('#content').html("<h1>Page not found</h1>");
   }
 });

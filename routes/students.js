@@ -7,14 +7,28 @@ var utils = require('../utils/utils');
 
 var controller = require('../controllers/students-controller');
 
-// GET all students
-router.get('/', function (req, res) {
-    controller.getAllStudents(req, res);
-});
 
-// POST make a new student
+// POST new student
 router.post('/', function(req, res) {
     controller.createNewStudent(req, res);
 });
+
+// GET all students
+router.get('/', function(req, res) {
+    controller.getAllStudents(req, res);
+});
+
+// GET student
+router.get('/:id', function(req, res) {
+  controller.getStudentInfo(req, res);
+});
+
+// PUT update student
+
+// DELETE student
+router.delete('/:id', function(req, res) {
+  controller.deleteStudent(req, res);
+});
+
 
 module.exports = router;

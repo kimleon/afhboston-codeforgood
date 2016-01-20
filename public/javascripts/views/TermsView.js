@@ -1,16 +1,33 @@
 window.TermsView = Backbone.View.extend({
 
-  initialize: function () {
+  initialize: function(options) {
+    this.term = options.term;
     this.render();
   },
 
-  render: function () {
+  render: function() {
     $(this.el).html(this.template());
     return this;
   },
 
-  events:  {
-    // "click .end-button":"endParty",
+  events: {
+    "click #new-term": "newTerm",
+    "click #download-term": "downloadTerm",
+    "click #delete-term": "deleteTerm",
+  },
+
+  /* Button click functions */
+  
+  newTerm: function() {
+
+  },
+
+  downloadTerm: function() {
+
+  },
+
+  deleteTerm: function() {
+
   },
 
   // endParty: function(e) {
