@@ -13,7 +13,7 @@ router.get('/', function (req, res) {
 });
 
 // POST make a new student
-router.post('/', function(req,res) {
+router.post('/', function(req, res) {
     controller.createNewStudent(req, res);
 });
 

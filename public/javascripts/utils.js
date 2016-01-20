@@ -1,5 +1,4 @@
 window.utils = {
-
   // Asynchronously load templates located in separate .html files
   loadTemplate: function (views, callback) {
     var deferreds = [];
@@ -15,15 +14,4 @@ window.utils = {
 
     $.when.apply(null, deferreds).done(callback);
   },
-
-  loadPieces: function (fileNames, viewName, callback) {
-    var deferreds = [];
-    $.each(fileNames, function (index, fileName) {
-      deferreds.push($.get('templates/' + fileName + '.html', function (data) {
-        window[viewName].prototype[fileName] = _.template(data);
-      }));
-    });
-
-    $.when.apply(null, deferreds).done(callback);
-  }
 };

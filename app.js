@@ -32,12 +32,14 @@ app.use('/users', users);
 app.use('/terms', terms);
 app.use('/students', students);
 
+/*
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
   err.status = 404;
   next(err);
 });
+*/
 
 // error handlers
 

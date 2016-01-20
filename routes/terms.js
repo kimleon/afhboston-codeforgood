@@ -9,13 +9,12 @@ var controller = require('../controllers/terms-controller');
 
 // GET all terms
 router.get('/', function (req, res) {
-    controller.getAllTerms(req, res);
+  controller.getAllTerms(req, res);
 });
 
-
 // POST make a new term
-router.post('/', function(req,res) {
-    controller.createNewTerm(req, res);
+router.post('/', function(req, res) {
+  controller.createNewTerm(req, res);
 });
 
 module.exports = router;
