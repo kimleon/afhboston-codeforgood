@@ -2,24 +2,25 @@ var AppRouter = Backbone.Router.extend({
 
   routes: {
     "": "home",
-    "terms": "uploadTerm",
-    "students": "getTranscript",
-    // "read": "read",
-    // "check": "check",
-    // "download": "download",
+    "test": "test",
+    "terms": "terms",
+    "students": "students",
     "*notFound": "notFound",
   },
 
-  initialize: function() {
-    console.log("here");
-    $('#content').html(new StudentsView().el);
-  },
-
-  uploadTerm: function() {
+  home: function() {
     $('#content').html(new TermsView().el);
   },
 
-  getTranscript: function() {
+  test: function() {
+    $(document.body).append("Test route has been called..");
+  },
+
+  terms: function() {
+    $('#content').html(new TermsView().el);
+  },
+
+  students: function() {
     $('#content').html(new StudentsView().el);
   },
 
@@ -30,5 +31,5 @@ var AppRouter = Backbone.Router.extend({
 
 utils.loadTemplate(["StudentsView", "TermsView"], function() {
   app = new AppRouter();
-  Backbone.history.start();
+  Backbone.history.start({pushState: true});
 });
