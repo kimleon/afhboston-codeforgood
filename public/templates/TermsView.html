@@ -1,1 +1,39 @@
+<!-- Upload term -->
+<div class="col-md-6" id="upload-term">
+  <h1>Upload New Term</h1>
+  <form class="form-horizontal" role="form">
+    <div class="form-group">
+      <label for="school-year" class="col-sm-2 control-label">School Year</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" id="school-year" placeholder="School Year">
+      </div>
+    </div>
+    
+    <div class="form-group">
+      <label for="period" class="col-sm-2 control-label">Period</label>
+      <div class="col-sm-10">
+        <input class="form-control" id="period" placeholder="Period">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="col-sm-offset-2 col-sm-10">
+        <button id="new-term-button" class="btn btn-primary">Start new term</button>
+      </div>
+    </div>
+  </form>
+
+  <div class="alert alert-danger" role="alert" id="upload-term-errors"></div>
+</div>
+
+<!-- Download term -->
+<div class="col-md-6" id="download-term">
+  <h1>Download CSV</h1>
+  <!-- <form method="get" action="file.doc"> -->
+    <button id="download-term-button" type="submit" class="btn-lg">
+      <span class="glyphicon glyphicon-download" aria-hidden="true"></span>
+    </button>
+  <!-- </form> -->
+</div>
+
 <div id="container">Loading Upload...</div>

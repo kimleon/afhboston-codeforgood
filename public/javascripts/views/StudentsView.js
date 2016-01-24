@@ -1,7 +1,7 @@
 window.StudentsView = Backbone.View.extend({
 
   initialize: function(options) {
-    this.student = options.student;
+    // this.student = options.student;
     this.render();
   },
 
@@ -11,8 +11,8 @@ window.StudentsView = Backbone.View.extend({
   },
 
   events: {
-    "click #new-student": "newStudent",
-    "click #update-student": "updateStudent",
+    "click #new-student-button": "newStudent",
+    "click #update-student-button": "updateStudent",
   },
 
   /* Button click functions */

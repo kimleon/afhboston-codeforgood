@@ -1,7 +1,9 @@
 var AppRouter = Backbone.Router.extend({
 
   routes: {
-    "": "upload",
+    "": "home",
+    "terms": "uploadTerm",
+    "students": "getTranscript",
     // "read": "read",
     // "check": "check",
     // "download": "download",
@@ -9,23 +11,17 @@ var AppRouter = Backbone.Router.extend({
   },
 
   initialize: function() {
+    console.log("here");
+    $('#content').html(new StudentsView().el);
   },
 
-  upload: function() {
+  uploadTerm: function() {
     $('#content').html(new TermsView().el);
   },
 
-  // read: function() {
-  //   $('#content').html(new ReadView().el);
-  // },
-
-  // check: function() {
-  //   $('#content').html(new CheckView().el);
-  // },
-
-  // download: function() {
-  //   $('#content').html(new DownloadView().el);
-  // },
+  getTranscript: function() {
+    $('#content').html(new StudentsView().el);
+  },
 
   notFound: function() {
     $('#content').html("<h1>Page not found</h1>");
