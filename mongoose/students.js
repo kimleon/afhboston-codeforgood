@@ -10,7 +10,7 @@ var studentSchema = Schema({
     schoolCode: {type: String, required: true},
     courseNames: [{type: String, required: true}],
     levels: [{type: String, required: true}],
-    grades: [{type: String, required: true}],
+    grades: [{type: String, required: false}],
     classCategories: [{type: String, required: true}],
 });
 
