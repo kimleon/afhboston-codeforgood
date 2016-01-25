@@ -76,7 +76,8 @@ window.TermsView = Backbone.View.extend({
         $.ajax({
           url: "/terms",
           type: "POST",
-          data: {schoolYear: schoolYear, period: period},
+          contentType: 'application/json; charset=utf-8',
+          data: JSON.stringify({schoolYear: schoolYear, period: period}),
           success: function () {
             // TODO: change navigating route
             Backbone.history.navigate("/");
