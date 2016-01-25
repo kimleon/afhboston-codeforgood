@@ -9,7 +9,7 @@ var AppRouter = Backbone.Router.extend({
   },
 
   home: function() {
-    $('#content').html(new StudentsView().el);
+    $('#content').html(new TermsView().el);
   },
 
   test: function() {
