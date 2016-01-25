@@ -1,11 +1,18 @@
-<!-- Transcript Page -->
+<!-- Create new student -->
 <div class="col-md-6" id="transcript">
   <h1>Transcript</h1>
   <form class="form-horizontal" role="form">
     <div class="form-group">
       <label for="student-name" class="col-sm-2 control-label">Name</label>
       <div class="col-sm-10">
-        <input type="text" class="form-control" id="student-name" placeholder="Name">
+        <input type="text" class="form-control" id="student-first-name" placeholder="First Name">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="student-name" class="col-sm-2 control-label">Name</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" id="student-last-name" placeholder="Last Name">
       </div>
     </div>
 
@@ -17,15 +24,78 @@
     </div>
 
     <div class="form-group">
-      <div class="col-sm-offset-2 col-sm-10">
+      <div class="col-sm-offset-2 col-sm-10"> 
         <button id="new-student-button" class="btn btn-primary">
         	<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
         </button>
       </div>
     </div>
   </form>
-  
   <div class="alert alert-danger" role="alert" id="new-student-errors"></div>
+</div>
+
+<!-- Update classes -->
+<div class="col-md-6" id="upload-classes">
+  <h1>Transcript</h1>
+  <form class="form-horizontal" role="form">
+    <div class="form-group">
+      <label for="student-name" class="col-sm-2 control-label">Name</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" id="student-first-name" value="<%= student.firstName %>">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="student-name" class="col-sm-2 control-label">Name</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" id="student-last-name" value="<%= student.lastName %>">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="student-school" class="col-sm-2 control-label">School</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" id="student-school" value="<%= student.school %>">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="student-classes" class="col-sm-2 control-label">Classes</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" id="student-course-names" value="<%= student.courseNames %>">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="student-levels" class="col-sm-2 control-label">Levels</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" id="student-levels" value="<%= student.levels %>">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="student-class-categories" class="col-sm-2 control-label">Class Categories</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" id="student-class-categories" value="<%= student.classCategories %>">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="student-grades" class="col-sm-2 control-label">Grades</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" id="student-grades" value="<%= student.grades %>">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="col-sm-offset-2 col-sm-10"> 
+        <button id="update-student-button" class="btn btn-primary">
+        	<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+        </button>
+      </div>
+    </div>
+  </form>
+  <div class="alert alert-danger" role="alert" id="update-student-errors"></div>
 </div>
 
 <div id="container">Loading Students...</div>
