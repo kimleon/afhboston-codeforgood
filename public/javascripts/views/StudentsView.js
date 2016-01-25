@@ -87,6 +87,8 @@ window.StudentsView = Backbone.View.extend({
           classCategories: classCategories,
         }),
         success: function () {
+          // TODO: need to add student to term
+
           // TODO: change navigating route
           Backbone.history.navigate("/");
           window.location.reload();
