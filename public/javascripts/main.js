@@ -9,7 +9,7 @@ var AppRouter = Backbone.Router.extend({
   },
 
   home: function() {
-    $('#content').html(new TermsView().el);
+    $('#content').html(new StudentsView().el);
   },
 
   test: function() {
@@ -31,5 +31,5 @@ var AppRouter = Backbone.Router.extend({
 
 utils.loadTemplate(["StudentsView", "TermsView"], function() {
   app = new AppRouter();
-  Backbone.history.start({pushState: true});
+  Backbone.history.start();
 });
