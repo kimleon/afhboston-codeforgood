@@ -45,8 +45,10 @@ window.TermsView = Backbone.View.extend({
         studentBlob,
         function(data){
           var lines = data.split("\n");
+          console.log(lines);
           for (var i = 1; i < lines.length; i++) {
-            var student = lines[i].split(",");
+            var lowerLine = lines[i].toLowerCase();
+            var student = lowerLine.split(",");
             studentMap[student[1]+"_"+student[0]] = student[2];
           }
           console.log(studentMap);
@@ -56,8 +58,10 @@ window.TermsView = Backbone.View.extend({
         schoolBlob,
         function(data){
           var lines = data.split("\n");
+          console.log(lines);
           for (var i = 1; i < lines.length; i++) {
-            var school = lines[i].split(",");
+            var lowerLine = lines[i].toLowerCase();
+            var school = lowerLine.split(",");
             schoolMap[school[0]] = school[1];
           }
           console.log(schoolMap);

@@ -28,16 +28,41 @@ window.StudentsView = Backbone.View.extend({
   /* Button click functions */
 
   newStudent: function(e) {
-    var firstName = $("#student-first-name", $(this.el)).val();
-    var lastName = $("#student-last-name", $(this.el)).val();
-    var school = $("#student-school", $(this.el)).val();
+    var firstName = $.trim($("#student-first-name", $(this.el)).val());
+    var lastName = $.trim($("#student-last-name", $(this.el)).val());
+    var school = $.trim($("#student-school", $(this.el)).val());
+    var studentArray = ["Sung,Hyungie,384237", "Ma,Jason,23424", "Leon,Kim,234234", "Shader,Sarah,772837", "Luo,Lauren,78238", "Pybus,Alyssa,892353", "Anand,Advaith,32423", "Lai,Alicia,534534", "Shea,Andrew,34142", "Deb,Chaarushena,635647", "Stroming,Jeremy,435345", "Luo,Jingya,3452123", "Leonardo,Kevin,67534", "Rosero,Marco,2345367", "Hagan,Matthew,4563452", "Thai,Megan,465784", "Kelsall,Nora,3524576", "Gonzalez,Omar,354425", "Zhong,Tim,45357432", "Katcoff,Abigail,4657841", "Espinosa,Camilo,4657842", "Helman,Efraim,4657843", "Shuter,Elisheva,4657844", "Perez,Emanuel,4657845", "Hernandez,Erick,4657846", "Kim,Hyun Jong,4657847", "Starobinski,Keren,4657848", "Slaten,Leah,4657849", "Guillen,Manuel,46578410", "Glasgow,Margalit,46578411", "Jay,Maya,46578412", "Marie,Nahom,46578413", "Propp,Oron,46578414", "Bruno,Prela,76578412", "Chandler,Squires,86578413", "German,Soto,96578414", "Haley,Strouf,42578415", "Maxwell,Lancaster,42578416"];
+    var schoolArray = ["MIT,23235", "UCLA,2535", "UCSB,7657554", "Harvard,65352454", "CalTech,54565345", "School Name,6345756", "NYU,7867", "U Penn,45", "Boston College,67456345234365", "Berkeley,56436576", "Other Berkeley,5347", "UCSD,56465534", "Columbia,54365435676", "Princeton,45655", "Yale,44665"];
+    var studentMap = {};
+    var schoolMap = {};
+
+    for (var i = 0; i < studentArray.length; i++) {
+      var lowerLine = studentArray[i].toLowerCase();
+      var studentTemp = lowerLine.split(",");
+      studentMap[studentTemp[1]+"_"+studentTemp[0]] = studentTemp[2];
+    }
+    for (var i = 0; i < schoolArray.length; i++) {
+      var lowerLine = schoolArray[i].toLowerCase();
+      var schoolTemp = lowerLine.split(",");
+      schoolMap[schoolTemp[0]] = schoolTemp[1];
+    }
+    var studentKey = firstName.toLowerCase()+"_"+lastName.toLowerCase();
+    var schoolKey = school.toLowerCase();
 
     // Get participantID from students dictionary
-    var participantID = "1";
+    var participantID = studentMap[studentKey];
+    if (participantID === undefined) {
+      participantID = "";
+    }
+    console.log(participantID);
 
     // Get schoolID and schoolCode from school dictionary
     var schoolID = "2";
-    var schoolCode = "3";
+    var schoolCode = schoolMap[schoolKey];
+    if (schoolCode === undefined) {
+      schoolCode = "";
+    }
+    console.log(schoolCode);
 
     //Get courseNames from OCR
     var courseNames = ["Advanced Placement Biology", "English Honors", "Computer Science"];
@@ -90,6 +115,7 @@ window.StudentsView = Backbone.View.extend({
           // TODO: need to add student to term
 
           // TODO: change navigating route
+
           Backbone.history.navigate("/students");
           window.location.reload();
         },
