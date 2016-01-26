@@ -68,19 +68,20 @@ window.TermsView = Backbone.View.extend({
         $("#upload-term-errors", $(this.el)).text("Please enter the school year.");
       } else if (period == "") {
         $("#upload-term-errors", $(this.el)).text("Please enter the period.");
-      } else if (studentIDs == "") {
+      } else if (studentMap == {}) {
         $("#upload-term-errors", $(this.el)).text("Please upload the student to salesforce id csv.");
-      } else if (schoolIDs == "") {
+      } else if (schoolMap == {}) {
         $("#upload-term-errors", $(this.el)).text("Please upload the school to salesforce id csv.");
       } else {
         $.ajax({
           url: "/terms",
           type: "POST",
           contentType: 'application/json; charset=utf-8',
-          data: JSON.stringify({schoolYear: schoolYear, period: period}),
-          success: function () {
+          data: JSON.stringify({schoolYear: schoolYear, period: period, students: [], studentMap: studentMap, schoolMap: schoolMap}),
+          success: function (data) {
             // TODO: change navigating route
-            Backbone.history.navigate("/");
+            // alert(data);
+            Backbone.history.navigate("/students");
             window.location.reload();
           },
           error: function (xhr, status, err) {
