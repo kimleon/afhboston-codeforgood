@@ -1,5 +1,92 @@
 <!-- Create new student -->
-<div class="col-md-6" id="transcript">
+<link rel="stylesheet" href="stylesheets/jquery.Jcrop.min.css" type="text/css" />
+<script src="javascripts/ocrad.js"></script>
+<script src="javascripts/jquery.min.js"></script>
+<script src="javascripts/jquery.Jcrop.js"></script>
+<script src="javascripts/jquery.color.js"></script>
+<script>
+ jQuery(function($){
+    $preview = $('#preview-pane'),
+        $pcnt = $('#preview-pane .preview-container'),
+        $pimg = $('#preview-pane .preview-container img'),
+
+        xsize = $pcnt.width();
+        ysize = $pcnt.height();
+  $('#pic').Jcrop();
+    $('#grades').click(function () {
+        grades();
+    });
+        $('#classes').click(function () {
+        classes();
+    });
+    function grades(){
+      var canvas = document.querySelector('#step3 canvas');
+      var step2Image = document.querySelector('#main img');
+      var cropData = $(step2Image).data().Jcrop.tellSelect();
+      var scale = step2Image.width / $(step2Image).width();
+        //draw cropped image on the canvas
+        canvas.width = cropData.w * scale;
+        canvas.height = cropData.h * scale;
+        var ctx = canvas.getContext('2d');
+        ctx.drawImage(
+            step2Image,
+            cropData.x * scale,
+            cropData.y * scale,
+            cropData.w * scale,
+            cropData.h * scale,
+            0,
+            0,
+            cropData.w * scale,
+            cropData.h * scale);
+
+        //use ocrad.js to extract text from the canvas
+        var resultText = OCRAD(ctx);
+        resultText = resultText.trim();
+        var substring="-"
+        console.log(resultText.indexOf(substring) > -1);
+        var res = replaceAll(resultText," ","")
+        res = replaceAll(resultText,"-","")
+        $( '#student-grades' ).val(res);
+          
+    }
+    function classes(){
+      var canvas = document.querySelector('#step3 canvas');
+      var step2Image = document.querySelector('#main img');
+      var cropData = $(step2Image).data().Jcrop.tellSelect();
+      var scale = step2Image.width / $(step2Image).width();
+        //draw cropped image on the canvas
+        canvas.width = cropData.w * scale;
+        canvas.height = cropData.h * scale;
+        var ctx = canvas.getContext('2d');
+        ctx.drawImage(
+            step2Image,
+            cropData.x * scale,
+            cropData.y * scale,
+            cropData.w * scale,
+            cropData.h * scale,
+            0,
+            0,
+            cropData.w * scale,
+            cropData.h * scale);
+
+        //use ocrad.js to extract text from the canvas
+        var resultText = OCRAD(ctx);
+        resultText = resultText.trim();
+        var substring="-"
+        console.log(resultText.indexOf(substring) > -1);
+        var res = replaceAll(resultText," ","")
+        res = replaceAll(resultText,"-","")
+        $( '#student-classes' ).val(res);
+          
+    }
+    function replaceAll(str, find, replace) {
+  return str.replace(new RegExp(find, 'g'), replace);
+  }
+  })
+
+    </script>
+<div class="row">
+  <div class="col-md-6" id="transcript">
   <h1>Transcript</h1>
   <form class="form-horizontal" role="form">
     <div class="form-group">
@@ -22,17 +109,32 @@
         <input type="text" class="form-control" id="student-school" placeholder="School">
       </div>
     </div>
+    <div class="form-group">
+      <label for="student-grades" class="col-sm-2 control-label">Grades</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" id="student-grades" placeholder="A , B , C , D">
+      </div>
+    </div>
+      <div class="form-group">
+      <label for="student-classes" class="col-sm-2 control-label">Classes</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" id="student-classes" placeholder="Classes">
+      </div>
+    </div>
 
     <div class="form-group">
       <div class="col-sm-offset-2 col-sm-10"> 
         <button id="new-student-button" class="btn btn-primary">
-        	<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+          <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
         </button>
       </div>
     </div>
   </form>
   <div class="alert alert-danger" role="alert" id="new-student-errors"></div>
 </div>
+
+</div>
+
 
 <!-- Update classes -->
 <!-- <div class="col-md-6" id="upload-classes">
@@ -99,3 +201,26 @@
 </div> -->
 
 <div id="container">Loading Students...</div>
+
+<div id="main" class="row">
+      <img id="pic" src="image/test.png" crossDomain = "anonymous" style="width:80%; height:80%; " >
+    
+    <button class="btn btn-lg btn-success" id="grades">Select Grades</button>
+    <button class="btn btn-lg btn-success" id="classes">Select Classes</button>
+  </div>
+  </div>
+    <div id="step3">
+            <figure>
+                <canvas hidden></canvas>
+            </figure>
+
+            <blockquote>
+                <p id="result"></p>
+                <footer></footer>
+            </blockquote>
+</div>
+
+
+
+
+
