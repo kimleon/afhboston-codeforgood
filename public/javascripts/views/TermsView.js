@@ -1,6 +1,5 @@
 window.TermsView = Backbone.View.extend({
   initialize: function(options) {
-    // this.term = options.term;
     this.render();
   },
 
@@ -11,7 +10,6 @@ window.TermsView = Backbone.View.extend({
 
   events: {
     "click #new-term-button": "newTerm",
-    "click #download-term-button": "downloadTerm",
     "click #delete-term-button": "deleteTerm",
   },
 
@@ -21,6 +19,7 @@ window.TermsView = Backbone.View.extend({
     e.preventDefault();
       var schoolYear = $("#school-year", $(this.el)).val();
       var period = $("#period", $(this.el)).val();
+
       // var studentIDs = $("#student-ids", $(this.el)).val().split('.com/')[1];
       var studentIDs = "sODPy7MuR0SvmzxCALdg";
       // var schoolIDs = $("#school-ids", $(this.el)).val().split('.com/')[1];
@@ -45,28 +44,27 @@ window.TermsView = Backbone.View.extend({
         studentBlob,
         function(data){
           var lines = data.split("\n");
-          console.log(lines);
           for (var i = 1; i < lines.length; i++) {
             var lowerLine = lines[i].toLowerCase();
             var student = lowerLine.split(",");
             studentMap[student[1]+"_"+student[0]] = student[2];
           }
-          console.log(studentMap);
         }
       );
       filepicker.read(
         schoolBlob,
         function(data){
           var lines = data.split("\n");
-          console.log(lines);
           for (var i = 1; i < lines.length; i++) {
             var lowerLine = lines[i].toLowerCase();
             var school = lowerLine.split(",");
             schoolMap[school[0]] = school[1];
           }
-          console.log(schoolMap);
         }
       );
+
+      schoolMap = {"MIT": 1, "LSU": 2};
+
       var self = this;
       if (schoolYear == "") {
         $("#upload-term-errors", $(this.el)).text("Please enter the school year.");
@@ -82,26 +80,15 @@ window.TermsView = Backbone.View.extend({
           type: "POST",
           contentType: 'application/json; charset=utf-8',
           data: JSON.stringify({schoolYear: schoolYear, period: period, students: [], studentMap: studentMap, schoolMap: schoolMap}),
-          success: function (data) {
-            // TODO: change navigating route
-            // alert(data);
-            Backbone.history.navigate("/students");
-            window.location.reload();
+          success: function(data) {
+            $('#content').html(new StudentsView({schoolYear: schoolYear, period: period, studentSize: 0,
+              studentMap: studentMap, schoolMap: schoolMap}).el);
           },
-          error: function (xhr, status, err) {
+          error: function(xhr, status, err) {
             $("#upload-term-errors", $(self.el)).text(err);
           }
         });
       }
   },
-
-  downloadTerm: function() {
-
-  },
-
-  deleteTerm: function() {
-
-  },
-
 
 });

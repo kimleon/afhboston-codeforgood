@@ -57,6 +57,17 @@ var controller = function() {
       );
     },
 
+    /* delete terms */
+    deleteAllTerms: function(req, res) {
+      Terms.remove({}, function(err, docs) {
+        if (err) {
+          utils.sendErrResponse(res, 500, 'An unknown error occurred.');
+        } else {
+          utils.sendSuccessResponse(res);
+        }
+      });
+    },
+
     /* delete term */
     deleteTerm: function(req, res) {
       Terms.remove({"_id": req.params.id}, function(err, docs) {

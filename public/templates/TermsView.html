@@ -19,13 +19,6 @@
     </div>
 
     <div class="form-group">
-      <label for="report-cards" class="col-sm-2 control-label">Report Cards</label>
-      <div class="col-sm-10">
-        <input type="filepicker-dragdrop" id="report-cards" data-fp-apikey="REMOVED" data-fp-container="modal" data-fp-services="COMPUTER,DROPBOX,GOOGLE_DRIVE,GMAIL" data-fp-extension=".pdf" >
-      </div>
-    </div>
-
-    <div class="form-group">
       <label for="student-ids" class="col-sm-2 control-label">Student Salesforce ID CSV</label>
       <div class="col-sm-10">
         <input type="filepicker-dragdrop" id="student-ids" data-fp-apikey="REMOVED" data-fp-container="modal" data-fp-services="COMPUTER,DROPBOX,GOOGLE_DRIVE,GMAIL" data-fp-extension=".csv" >
@@ -48,22 +41,3 @@
 
   <div class="alert alert-danger" role="alert" id="upload-term-errors"></div>
 </div>
-
-<!-- Download term -->
-<div class="col-md-6" id="download-term">
-  <h1>Download CSV</h1>
-  <!-- <form method="get" action="file.doc"> -->
-    <button id="download-term-button" type="submit" class="btn-lg">
-      <span class="glyphicon glyphicon-download" aria-hidden="true"></span>
-    </button>
-  <!-- </form> -->
-</div>
-
-<!-- Test routing -->
-<div class="col-md-6" id="test-routes">
-  <a href="/#terms">terms</a>
-  <a href="/#students">students</a>
-  <a href="/#test">test</a>
-</div>
-
-<div id="container">Loading Upload...</div>

@@ -1,41 +1,65 @@
 window.StudentsView = Backbone.View.extend({
   initialize: function(options) {
-    this.student = {
-      participantID: "1",
-      firstName: "Hello",
-      lastName: "World",
-      schoolID: "2",
-      school: "MIT",
-      schoolCode: "3",
-      courseNames: ["Bio AP", "CS"],
-      levels: ["AP", "regular"],
-      grades: ["A", "B"],
-      classCategories: ["Science", "Elective"],
-    };
+    this.schoolYear = options.schoolYear;
+    this.period = options.period;
+    this.studentSize = options.studentSize;
+    this.studentMap = options.studentMap;
+    this.schoolMap = options.schoolMap;
     this.render();
   },
 
   render: function() {
-    $(this.el).html(this.template({student:this.student}));
+    $(this.el).html(this.template({schoolYear: this.schoolYear, period: this.period,
+      studentSize: this.studentSize, schools: Object.keys(this.schoolMap)}));
     return this;
   },
 
   events: {
+    "click #restart-button": "restart",
     "click #new-student-button": "newStudent",
     "click #update-student-button": "updateStudent",
+    "click #download-term-button": "downloadTerm",
   },
 
   /* Button click functions */
 
+  restart: function(e) {
+    e.preventDefault();
+
+    $.ajax({
+    type: "DELETE",
+    url: "/students/",
+    success: function() {
+      $.ajax({
+        type: "DELETE",
+        url: "/terms/",
+        success: function() {
+          $('#content').html(new TermsView().el);
+        }, error: function( xhr, status, err) {
+            self.newGeneralError(err);
+            $("#restart-errors", $(this.el)).text("Something went wrong on our end.");
+            $("#restart-errors", $(self.el)).text(err);
+        }
+      })
+    }, error: function( xhr, status, err) {
+        self.newGeneralError(err);
+        $("#restart-errors", $(this.el)).text("Something went wrong on our end.");
+        $("#restart-errors", $(self.el)).text(err);
+    }
+    })
+  },
+
   newStudent: function(e) {
+    e.preventDefault();
+
     var firstName = $.trim($("#student-first-name", $(this.el)).val());
     var lastName = $.trim($("#student-last-name", $(this.el)).val());
     var school = $.trim($("#student-school", $(this.el)).val());
-    var studentArray = ["Sung,Hyungie,384237", "Ma,Jason,23424", "Leon,Kim,234234", "Shader,Sarah,772837", "Luo,Lauren,78238", "Pybus,Alyssa,892353", "Anand,Advaith,32423", "Lai,Alicia,534534", "Shea,Andrew,34142", "Deb,Chaarushena,635647", "Stroming,Jeremy,435345", "Luo,Jingya,3452123", "Leonardo,Kevin,67534", "Rosero,Marco,2345367", "Hagan,Matthew,4563452", "Thai,Megan,465784", "Kelsall,Nora,3524576", "Gonzalez,Omar,354425", "Zhong,Tim,45357432", "Katcoff,Abigail,4657841", "Espinosa,Camilo,4657842", "Helman,Efraim,4657843", "Shuter,Elisheva,4657844", "Perez,Emanuel,4657845", "Hernandez,Erick,4657846", "Kim,Hyun Jong,4657847", "Starobinski,Keren,4657848", "Slaten,Leah,4657849", "Guillen,Manuel,46578410", "Glasgow,Margalit,46578411", "Jay,Maya,46578412", "Marie,Nahom,46578413", "Propp,Oron,46578414", "Bruno,Prela,76578412", "Chandler,Squires,86578413", "German,Soto,96578414", "Haley,Strouf,42578415", "Maxwell,Lancaster,42578416"];
-    var schoolArray = ["MIT,23235", "UCLA,2535", "UCSB,7657554", "Harvard,65352454", "CalTech,54565345", "School Name,6345756", "NYU,7867", "U Penn,45", "Boston College,67456345234365", "Berkeley,56436576", "Other Berkeley,5347", "UCSD,56465534", "Columbia,54365435676", "Princeton,45655", "Yale,44665"];
+    
+    var studentArray = ["Sung,Hyungie,384237", "Ma,Jason,23424", "Leon,Kim,234234"];
+    var schoolArray = ["MIT,23235", "UCLA,2535", "UCSB,7657554"];
     var studentMap = {};
     var schoolMap = {};
-
     for (var i = 0; i < studentArray.length; i++) {
       var lowerLine = studentArray[i].toLowerCase();
       var studentTemp = lowerLine.split(",");
@@ -51,22 +75,21 @@ window.StudentsView = Backbone.View.extend({
 
     // Get participantID from students dictionary
     var participantID = studentMap[studentKey];
+    // var participantID = this.studentMap[studentKey];
     if (participantID === undefined) {
       participantID = "";
     }
-    console.log(participantID);
 
     // Get schoolID and schoolCode from school dictionary
     var schoolID = "2";
     var schoolCode = schoolMap[schoolKey];
+    // var schoolCode = this.schoolMap[schoolKey];
     if (schoolCode === undefined) {
       schoolCode = "";
     }
-    console.log(schoolCode);
 
-    //Get courseNames from OCR
-    var courseNames = ["Advanced Placement Biology", "English Honors", "Computer Science"];
-
+    var courseNames = this.trimStringsToArray($("#student-courses", $(this.el)).val());
+    var grades = this.trimStringsToArray($("#student-grades", $(this.el)).val());
     var levels = [];
     var classCategories = [];
 
@@ -82,6 +105,12 @@ window.StudentsView = Backbone.View.extend({
       classCategories.push(classCategory);
     }
 
+    var schoolYear = this.schoolYear;
+    var period = this.period;
+    var studentSize = this.studentSize;
+    var studentMap = this.studentMap;
+    var schoolMap = this.schoolMap;
+
     var self = this;
     if (firstName == "") {
       $("#new-student-errors", $(this.el)).text("Please enter the first name.");
@@ -93,6 +122,8 @@ window.StudentsView = Backbone.View.extend({
       $("#new-student-errors", $(this.el)).text("Please enter the school.");
     } else if (schoolID == "" || schoolCode == "") {
       $("#new-student-errors", $(this.el)).text("School is not in school directory.");
+    } else if (courseNames.length != grades.length) {
+      $("#new-student-errors", $(this.el)).text("Please enter the same number of classes as grades.");
     } else if (courseNames.length != levels.length || courseNames.length != classCategories.length) {
       $("#new-student-errors", $(this.el)).text("Something went wrong on our end.");
     } else {
@@ -109,15 +140,20 @@ window.StudentsView = Backbone.View.extend({
           schoolCode: schoolCode,
           courseNames: courseNames,
           levels: levels,
+          grades: grades,
           classCategories: classCategories,
         }),
-        success: function () {
-          // TODO: need to add student to term
-
-          // TODO: change navigating route
-
-          Backbone.history.navigate("/students");
-          window.location.reload();
+        success: function(data) {
+            $.ajax({
+              url:"/students",
+              type:"GET"
+            }).done(function(allStudents) {
+              $('#newStudentModal').modal('hide');
+              $('body').removeClass('modal-open');
+              $('.modal-backdrop').remove();
+              $('#content').html(new StudentsView({schoolYear: schoolYear, period: period, studentSize: allStudents.length,
+                 studentMap: studentMap, schoolMap: schoolMap}).el);
+            });
         },
         error: function (xhr, status, err) {
           $("#new-student-errors", $(self.el)).text(err);
@@ -127,14 +163,16 @@ window.StudentsView = Backbone.View.extend({
 
   },
 
-  updateStudent: function() {
+  downloadTerm: function() {
 
   },
 
+  /* Helper functions */
+
   findLevel: function(courseName) {
-    if (courseName.indexOf('advanced placement') > -1) {
+    if (courseName.indexOf('AP') > -1) {
       return "AP";
-    } else if (courseName.indexOf('honors') > -1) {
+    } else if (courseName.indexOf('Honors') > -1) {
       return "Honors";
     } else {
       return "Regular";
@@ -180,5 +218,15 @@ window.StudentsView = Backbone.View.extend({
       }
     }
     return "Elective";
+  },
+
+  trimStringsToArray: function(str) {
+    var strings = [];
+
+    $.each(str.split(","), function(){
+        strings.push($.trim(this));
+    });
+
+    return strings;
   },
 });

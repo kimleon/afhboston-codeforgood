@@ -1,226 +1,112 @@
-<!-- Create new student -->
-<link rel="stylesheet" href="stylesheets/jquery.Jcrop.min.css" type="text/css" />
-<script src="javascripts/ocrad.js"></script>
-<script src="javascripts/jquery.min.js"></script>
-<script src="javascripts/jquery.Jcrop.js"></script>
-<script src="javascripts/jquery.color.js"></script>
-<script>
- jQuery(function($){
-    $preview = $('#preview-pane'),
-        $pcnt = $('#preview-pane .preview-container'),
-        $pimg = $('#preview-pane .preview-container img'),
+<!-- Start over -->
+<div class="navbar navbar-default navbar-fixed-top" style="z-index: 10;">
+  <div class="navbar-inner">
+    <div class="container">
+      <div class="col-md-6 text-right" id="restart">
+        <button id="restart-button" type="submit" class="btn-sm pull-right">
+          <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
 
-        xsize = $pcnt.width();
-        ysize = $pcnt.height();
-  $('#pic').Jcrop();
-    $('#grades').click(function () {
-        grades();
-    });
-        $('#classes').click(function () {
-        classes();
-    });
-    function grades(){
-      var canvas = document.querySelector('#step3 canvas');
-      var step2Image = document.querySelector('#main img');
-      var cropData = $(step2Image).data().Jcrop.tellSelect();
-      var scale = step2Image.width / $(step2Image).width();
-        //draw cropped image on the canvas
-        canvas.width = cropData.w * scale;
-        canvas.height = cropData.h * scale;
-        var ctx = canvas.getContext('2d');
-        ctx.drawImage(
-            step2Image,
-            cropData.x * scale,
-            cropData.y * scale,
-            cropData.w * scale,
-            cropData.h * scale,
-            0,
-            0,
-            cropData.w * scale,
-            cropData.h * scale);
 
-        //use ocrad.js to extract text from the canvas
-        var resultText = OCRAD(ctx);
-        resultText = resultText.trim();
-        var substring="-"
-        console.log(resultText.indexOf(substring) > -1);
-        var res = replaceAll(resultText," ","")
-        res = replaceAll(resultText,"-","")
-        $( '#student-grades' ).val(res);
-          
-    }
-    function classes(){
-      var canvas = document.querySelector('#step3 canvas');
-      var step2Image = document.querySelector('#main img');
-      var cropData = $(step2Image).data().Jcrop.tellSelect();
-      var scale = step2Image.width / $(step2Image).width();
-        //draw cropped image on the canvas
-        canvas.width = cropData.w * scale;
-        canvas.height = cropData.h * scale;
-        var ctx = canvas.getContext('2d');
-        ctx.drawImage(
-            step2Image,
-            cropData.x * scale,
-            cropData.y * scale,
-            cropData.w * scale,
-            cropData.h * scale,
-            0,
-            0,
-            cropData.w * scale,
-            cropData.h * scale);
 
-        //use ocrad.js to extract text from the canvas
-        var resultText = OCRAD(ctx);
-        resultText = resultText.trim();
-        var substring="-"
-        console.log(resultText.indexOf(substring) > -1);
-        var res = replaceAll(resultText," ","")
-        res = replaceAll(resultText,"-","")
-        $( '#student-classes' ).val(res);
-          
-    }
-    function replaceAll(str, find, replace) {
-  return str.replace(new RegExp(find, 'g'), replace);
-  }
-  })
-
-    </script>
+<!-- Term Info -->
 <div class="row">
-  <div class="col-md-6" id="transcript">
-  <h1>Transcript</h1>
-  <form class="form-horizontal" role="form">
-    <div class="form-group">
-      <label for="student-name" class="col-sm-2 control-label">First Name</label>
-      <div class="col-sm-10">
-        <input type="text" class="form-control" id="student-first-name" placeholder="First Name">
-      </div>
-    </div>
+  <h1>Term</h1>
+  <p><b>School Year: </b><%= schoolYear %></p>
+  <p><b>Period: </b><%= period %></p>
+  <p><b>Students: </b><%= studentSize %></p>
+</div>
 
-    <div class="form-group">
-      <label for="student-name" class="col-sm-2 control-label">Last Name</label>
-      <div class="col-sm-10">
-        <input type="text" class="form-control" id="student-last-name" placeholder="Last Name">
-      </div>
-    </div>
 
-    <div class="form-group">
-      <label for="student-school" class="col-sm-2 control-label">School</label>
-      <div class="col-sm-10">
-        <input type="text" class="form-control" id="student-school" placeholder="School">
-      </div>
-    </div>
-    <div class="form-group">
-      <label for="student-grades" class="col-sm-2 control-label">Grades</label>
-      <div class="col-sm-10">
-        <input type="text" class="form-control" id="student-grades" placeholder="A , B , C , D">
-      </div>
-    </div>
-      <div class="form-group">
-      <label for="student-classes" class="col-sm-2 control-label">Classes</label>
-      <div class="col-sm-10">
-        <input type="text" class="form-control" id="student-classes" placeholder="Classes">
-      </div>
-    </div>
+<!-- Add New Student Modal -->
+<!-- Button trigger modal -->
+<button class="btn btn-primary" data-toggle="modal" data-target="#newStudentModal">
+  Add New Student
+</button>
 
-    <div class="form-group">
-      <div class="col-sm-offset-2 col-sm-10"> 
-        <button id="new-student-button" class="btn btn-primary">
-          <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+<!-- Modal -->
+<div class="modal fade" id="newStudentModal" tabindex="-1" role="dialog" aria-labelledby="newStudentModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">
+          <span aria-hidden="true">&times;</span>
+          <span class="sr-only">Close</span>
+        </button>
+        <h4 class="modal-title" id="newStudentModalLabel">
+          Add New Student
+        </h4>
+      </div>
+            
+      <!-- Modal Body -->
+      <div class="modal-body">
+        <form class="form-horizontal" role="form">
+          <div class="form-group">
+            <label for="student-name" class="col-sm-2 control-label">First Name</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="student-first-name" placeholder="Jane">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="student-name" class="col-sm-2 control-label">Last Name</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="student-last-name" placeholder="Doe">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="student-school" class="col-sm-2 control-label">School</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="student-school" placeholder="Brighton High School">
+            </div>
+          </div>
+      
+          <div class="form-group">
+            <label for="student-courses" class="col-sm-2 control-label">Classes</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="student-courses" placeholder="AP Biology, English Honors, Art">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="student-grades" class="col-sm-2 control-label">Grades</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="student-grades" placeholder="A-, B, B+">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+              <button type="submit" class="btn btn-default" data-dismiss="modal" id="new-student-button">Add Student</button>
+            </div>
+          </div>
+        </form>
+      </div>
+            
+      <!-- Modal Footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">
+          Close
         </button>
       </div>
+      <div class="alert alert-danger" role="alert" id="new-student-errors"></div>
     </div>
-  </form>
-  <div class="alert alert-danger" role="alert" id="new-student-errors"></div>
-</div>
-
-</div>
-
-
-<!-- Update classes -->
-<!-- <div class="col-md-6" id="upload-classes">
-  <h1>Transcript</h1>
-  <form class="form-horizontal" role="form">
-    <div class="form-group">
-      <label for="student-name" class="col-sm-2 control-label">First Name</label>
-      <div class="col-sm-10">
-        <input type="text" class="form-control" id="student-first-name" value="<%= student.firstName %>">
-      </div>
-    </div>
-
-    <div class="form-group">
-      <label for="student-name" class="col-sm-2 control-label">Last Name</label>
-      <div class="col-sm-10">
-        <input type="text" class="form-control" id="student-last-name" value="<%= student.lastName %>">
-      </div>
-    </div>
-
-    <div class="form-group">
-      <label for="student-school" class="col-sm-2 control-label">School</label>
-      <div class="col-sm-10">
-        <input type="text" class="form-control" id="student-school" value="<%= student.school %>">
-      </div>
-    </div>
-
-    <div class="form-group">
-      <label for="student-classes" class="col-sm-2 control-label">Classes</label>
-      <div class="col-sm-10">
-        <input type="text" class="form-control" id="student-course-names" value="<%= student.courseNames %>">
-      </div>
-    </div>
-
-    <div class="form-group">
-      <label for="student-levels" class="col-sm-2 control-label">Levels</label>
-      <div class="col-sm-10">
-        <input type="text" class="form-control" id="student-levels" value="<%= student.levels %>">
-      </div>
-    </div>
-
-    <div class="form-group">
-      <label for="student-class-categories" class="col-sm-2 control-label">Class Categories</label>
-      <div class="col-sm-10">
-        <input type="text" class="form-control" id="student-class-categories" value="<%= student.classCategories %>">
-      </div>
-    </div>
-
-    <div class="form-group">
-      <label for="student-grades" class="col-sm-2 control-label">Grades</label>
-      <div class="col-sm-10">
-        <input type="text" class="form-control" id="student-grades" value="<%= student.grades %>">
-      </div>
-    </div>
-
-    <div class="form-group">
-      <div class="col-sm-offset-2 col-sm-10"> 
-        <button id="update-student-button" class="btn btn-primary">
-        	<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-        </button>
-      </div>
-    </div>
-  </form>
-  <div class="alert alert-danger" role="alert" id="update-student-errors"></div>
-</div> -->
-
-<div id="container">Loading Students...</div>
-
-<div id="main" class="row">
-      <img id="pic" src="image/test.png" crossDomain = "anonymous" style="width:80%; height:80%; " >
-    
-    <button class="btn btn-lg btn-success" id="grades">Select Grades</button>
-    <button class="btn btn-lg btn-success" id="classes">Select Classes</button>
   </div>
-  </div>
-    <div id="step3">
-            <figure>
-                <canvas hidden></canvas>
-            </figure>
-
-            <blockquote>
-                <p id="result"></p>
-                <footer></footer>
-            </blockquote>
 </div>
 
 
+<!-- Download term -->
+<div class="col-md-6" id="download-term">
+  <h1>Download CSV</h1>
+  <button id="download-term-button" type="submit" class="btn-lg">
+    <span class="glyphicon glyphicon-download" aria-hidden="true"></span>
+  </button>
+</div>
 
-
-
+<div class="alert alert-danger" role="alert" id="restart-errors"></div>

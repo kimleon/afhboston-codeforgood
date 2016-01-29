@@ -41,7 +41,16 @@ var controller = function() {
       });
     },
 
-    /* update student */
+    /* delete all students */
+    deleteAllStudents: function(req, res) {
+      Students.remove({}, function(err, docs) {
+        if (err) {
+          utils.sendErrResponse(res, 500, 'An unknown error occurred.');
+        } else {
+          utils.sendSuccessResponse(res);
+        }
+      });
+    },
 
     /* delete student */
     deleteStudent: function(req, res) {

@@ -23,7 +23,10 @@ router.get('/:id', function(req, res) {
   controller.getStudentInfo(req, res);
 });
 
-// PUT update student
+// DELETE all students
+router.delete('/', function(req, res) {
+  controller.deleteAllStudents(req, res);
+});
 
 // DELETE student
 router.delete('/:id', function(req, res) {

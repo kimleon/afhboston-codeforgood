@@ -28,6 +28,11 @@ router.put('/:id/:studentId', function(req, res) {
   controller.addStudentToTerm(req, res);
 });
 
+// DELETE all terms
+router.delete('/', function(req, res) {
+  controller.deleteAllTerms(req, res);
+});
+
 // DELETE term
 router.delete('/:id', function(req, res) {
   controller.deleteTerm(req, res);
