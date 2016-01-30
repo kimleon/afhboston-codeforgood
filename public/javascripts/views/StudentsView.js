@@ -27,26 +27,24 @@ window.StudentsView = Backbone.View.extend({
     e.preventDefault();
 
     $.ajax({
-    type: "DELETE",
-    url: "/students/",
-    success: function() {
-      $.ajax({
-        type: "DELETE",
-        url: "/terms/",
-        success: function() {
-          $('#content').html(new TermsView().el);
-        }, error: function( xhr, status, err) {
-            self.newGeneralError(err);
-            $("#restart-errors", $(this.el)).text("Something went wrong on our end.");
-            $("#restart-errors", $(self.el)).text(err);
-        }
-      })
-    }, error: function( xhr, status, err) {
-        self.newGeneralError(err);
-        $("#restart-errors", $(this.el)).text("Something went wrong on our end.");
-        $("#restart-errors", $(self.el)).text(err);
-    }
-    })
+      type: " DELETE",
+      url: "/students/",
+      success: function() {
+        $.ajax({
+          type: "DELETE",
+          url: "/terms/",
+          success: function() {
+            $('#content').html(new TermsView().el);
+          }, error: function(xhr, status, err) {
+              $("#restart-errors", $(this.el)).text("Something went wrong on our end.");
+              $("#restart-errors", $(self.el)).text(err);
+          }
+        })
+      }, error: function(xhr, status, err) {
+          $("#restart-errors", $(this.el)).text("Something went wrong on our end.");
+          $("#restart-errors", $(self.el)).text(err);
+      }
+    });
   },
 
   newStudent: function(e) {
@@ -75,7 +73,7 @@ window.StudentsView = Backbone.View.extend({
 
     // Get participantID from students dictionary
     var participantID = studentMap[studentKey];
-    // var participantID = this.studentMap[studentKey];
+    // var participantID = this.studentMap[stdentKey];
     if (participantID === undefined) {
       participantID = "";
     }
