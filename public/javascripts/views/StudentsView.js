@@ -164,8 +164,41 @@ window.StudentsView = Backbone.View.extend({
   },
 
   downloadTerm: function() {
+    var schoolYear = this.schoolYear;
+    var period = this.period;
+    $.ajax({
+      url:"/students",
+      type:"GET"
+    }).done(function(allStudents) {
+      var fields = ["School Year","Period","First Name","Last Name","Participant ID","School ID","School","School Code","Course Name","Level","Grade","Class Category"];
+      var fieldNames = ["firstName","lastName","participantID","schoolID","school","schoolCode"];
+      var result = [];
+      var header = fields.slice(0, fields.length);
+      result.push(header);
+      
+      for (var i = 0; i < allStudents.length; i += 1) {
+        var student = allStudents[i];
+        var courses = student.courseNames;
+        var grades = student.grades;
+        var levels = student.levels;
+        var categories = student.classCategories;
+        for (var j = 0; j < courses.length; j += 1) {
+          var course = courses[j];
+          var level = levels[j];
+          var grade = grades[j];
+          var category = categories[j];
+          result.push([schoolYear, period, student.firstName, student.lastName, student.participantID, student.schoolID, student.school, student.schoolCode, course, level, grade, category].join(','));
+        }
+      }
+      console.log(result)
 
+      // var stream = fs.createWriteStream("export.csv");
+      // csv.write(result).pipe(stream).on('finish', function() {
+      //   process.exit();
+      // });
+    });
   },
+
 
   /* Helper functions */
 
