@@ -9,7 +9,25 @@ var AppRouter = Backbone.Router.extend({
   },
 
   home: function() {
-    $('#content').html(new TermsView().el);
+    $.ajax({
+      type: "DELETE",
+      url: "/students/",
+      success: function() {
+        $.ajax({
+          type: "DELETE",
+          url: "/terms/",
+          success: function() {
+            $('#content').html(new TermsView().el);
+          }, error: function(xhr, status, err) {
+              // $("#restart-errors", $(this.el)).text("Something went wrong on our end.");
+              // $("#restart-errors", $(self.el)).text(err);
+          }
+        })
+      }, error: function(xhr, status, err) {
+          // $("#restart-errors", $(this.el)).text("Something went wrong on our end.");
+          // $("#restart-errors", $(self.el)).text(err);
+      }
+    });
   },
 
   test: function() {
