@@ -91,7 +91,7 @@ window.TermsView = Backbone.View.extend({
           data: JSON.stringify({schoolYear: schoolYear, period: period, students: [], studentMap: studentMap, schoolMap: schoolMap, studentIDMap: studentIDMap}),
           success: function(data) {
             $('#content').html(new StudentsView({schoolYear: schoolYear, period: period, studentSize: 0,
-              studentMap: studentMap, schoolMap: schoolMap}).el);
+              studentMap: studentMap, schoolMap: schoolMap, studentIDMap: studentIDMap}).el);
           },
           error: function(xhr, status, err) {
             $("#upload-term-errors", $(self.el)).text(err);

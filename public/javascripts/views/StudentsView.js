@@ -55,35 +55,18 @@ window.StudentsView = Backbone.View.extend({
     var lastName = $.trim($("#student-last-name", $(this.el)).val());
     var school = $.trim($("#student-school", $(this.el)).val());
     
-    var studentArray = ["Sung,Hyungie,384237", "Ma,Jason,23424", "Leon,Kim,234234"];
-    var schoolArray = ["MIT,23235", "UCLA,2535", "UCSB,7657554"];
-    var studentMap = {};
-    var schoolMap = {};
-    for (var i = 0; i < studentArray.length; i++) {
-      var lowerLine = studentArray[i].toLowerCase();
-      var studentTemp = lowerLine.split(",");
-      studentMap[studentTemp[1]+"_"+studentTemp[0]] = studentTemp[2];
-    }
-    for (var i = 0; i < schoolArray.length; i++) {
-      var lowerLine = schoolArray[i].toLowerCase();
-      var schoolTemp = lowerLine.split(",");
-      schoolMap[schoolTemp[0]] = schoolTemp[1];
-    }
     var studentKey = firstName.toLowerCase()+"_"+lastName.toLowerCase();
     var schoolKey = school.toLowerCase();
 
     // Get participantID from students dictionary
-    var participantID = studentMap[studentKey];
-    // var participantID = this.studentMap[studentKey];
+    var participantID = this.studentMap[studentKey];
     if (participantID === undefined) {
       participantID = "";
     }
 
-    // Get schoolID and schoolCode from school dictionary
-    var schoolID = "2";
-    // var schoolID = this.studentIDMap[studentKey];
-    var schoolCode = schoolMap[schoolKey];
-    // var schoolCode = this.schoolMap[schoolKey];
+    // Get schoolID and schoolCode from student id dictionary and school dictionary
+    var schoolID = this.studentIDMap[studentKey];
+    var schoolCode = this.schoolMap[schoolKey];
     if (schoolCode === undefined) {
       schoolCode = "";
     }
@@ -221,7 +204,7 @@ window.StudentsView = Backbone.View.extend({
     var FOREIGN_LANG = ["spanish", "french", "latin"];
     var HISTORY = ["history", "government"];
     var MATH = ["math", "mathematics", "algebra", "trigonometry", "calculus"];
-    var SCIENCE = ["science", "biology", "chemistry", "physics", "anatomy",];
+    var SCIENCE = ["science", "biology", "chemistry", "physics", "anatomy"];
 
     for (var i = 0; i < ARTS; i++) {
       if (courseName.indexOf(ARTS[i]) > -1) {
