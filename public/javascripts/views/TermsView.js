@@ -88,10 +88,8 @@ window.TermsView = Backbone.View.extend({
           contentType: 'application/json; charset=utf-8',
           data: JSON.stringify({schoolYear: schoolYear, period: period, students: [], studentMap: studentMap, schoolMap: schoolMap}),
           success: function(data) {
-            console.log(schoolMap)
-            console.log(studentMap)
-            // $('#content').html(new StudentsView({schoolYear: schoolYear, period: period, studentSize: 0,
-            //   studentMap: studentMap, schoolMap: schoolMap}).el);
+            $('#content').html(new StudentsView({schoolYear: schoolYear, period: period, studentSize: 0,
+              studentMap: studentMap, schoolMap: schoolMap}).el);
           },
           error: function(xhr, status, err) {
             $("#upload-term-errors", $(self.el)).text(err);
