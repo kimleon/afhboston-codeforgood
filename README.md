@@ -17,6 +17,8 @@ npm start
 then navigate to http://localhost:3000/ in your browser
 
 To Use:
+note that **clicking refresh at any time will erase all data**
+
 
 1. Enter School Year and Period (1/2/3/4)
 2. Upload the Student Name to Student Salesforce ID csv and School Name to School Salesforce ID csv, which should have the following formats (1st row is labels, 2nd on are entries):
