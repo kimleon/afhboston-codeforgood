@@ -192,10 +192,11 @@ window.StudentsView = Backbone.View.extend({
       }
       console.log(result);
 
-      // var stream = fs.createWriteStream("export.csv");
-      // csv.write(result).pipe(stream).on('finish', function() {
-      //   process.exit();
-      // });
+      // Data URI
+      var csvData = 'data:text/csv;charset=UTF-8,' + encodeURIComponent(result);
+
+      console.log(csvData);
+      window.location.href = csvData;
     });
   },
 
