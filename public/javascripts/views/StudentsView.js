@@ -216,12 +216,12 @@ window.StudentsView = Backbone.View.extend({
   },
 
   categorizeClass: function(courseName) {
-    var ARTS = [];
-    var ENGLISH = [];
-    var FOREIGN_LANG = [];
-    var HISTORY = [];
-    var MATH = [];
-    var SCIENCE = [];
+    var ARTS = ["studio", "visual"];
+    var ENGLISH = ["english", "language"];
+    var FOREIGN_LANG = ["spanish", "french", "latin"];
+    var HISTORY = ["history", "government"];
+    var MATH = ["math", "mathematics", "algebra", "trigonometry", "calculus"];
+    var SCIENCE = ["science", "biology", "chemistry", "physics", "anatomy",];
 
     for (var i = 0; i < ARTS; i++) {
       if (courseName.indexOf(ARTS[i]) > -1) {
