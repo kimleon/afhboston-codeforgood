@@ -27,7 +27,7 @@ window.StudentsView = Backbone.View.extend({
     e.preventDefault();
 
     $.ajax({
-      type: " DELETE",
+      type: "DELETE",
       url: "/students/",
       success: function() {
         $.ajax({
@@ -36,13 +36,13 @@ window.StudentsView = Backbone.View.extend({
           success: function() {
             $('#content').html(new TermsView().el);
           }, error: function(xhr, status, err) {
-              $("#restart-errors", $(this.el)).text("Something went wrong on our end.");
-              $("#restart-errors", $(self.el)).text(err);
+            $("#restart-errors", $(this.el)).text("Something went wrong on our end.");
+            $("#restart-errors", $(self.el)).text(err);
           }
         })
       }, error: function(xhr, status, err) {
-          $("#restart-errors", $(this.el)).text("Something went wrong on our end.");
-          $("#restart-errors", $(self.el)).text(err);
+        $("#restart-errors", $(this.el)).text("Something went wrong on our end.");
+        $("#restart-errors", $(self.el)).text(err);
       }
     });
   },
@@ -73,7 +73,7 @@ window.StudentsView = Backbone.View.extend({
 
     // Get participantID from students dictionary
     var participantID = studentMap[studentKey];
-    // var participantID = this.studentMap[stdentKey];
+    // var participantID = this.studentMap[studentKey];
     if (participantID === undefined) {
       participantID = "";
     }
@@ -161,7 +161,9 @@ window.StudentsView = Backbone.View.extend({
 
   },
 
-  downloadTerm: function() {
+  downloadTerm: function(e) {
+    e.preventDefault();
+
     var schoolYear = this.schoolYear;
     var period = this.period;
     $.ajax({
@@ -188,7 +190,7 @@ window.StudentsView = Backbone.View.extend({
           result.push([schoolYear, period, student.firstName, student.lastName, student.participantID, student.schoolID, student.school, student.schoolCode, course, level, grade, category].join(','));
         }
       }
-      console.log(result)
+      console.log(result);
 
       // var stream = fs.createWriteStream("export.csv");
       // csv.write(result).pipe(stream).on('finish', function() {
