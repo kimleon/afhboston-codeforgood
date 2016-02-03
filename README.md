@@ -4,6 +4,7 @@ Simple interface to assist streamlining the report card entering process at Arti
 
 **filepicker.io API key needed before running**
 
+replace [REMOVED] with your API key in the two instances of data-fp-apikey="[REMOVED]" in public/templates/TermsView.html
 
 #### Running Locally:
 ```sh

@@ -19,11 +19,8 @@ window.TermsView = Backbone.View.extend({
     e.preventDefault();
       var schoolYear = $("#school-year", $(this.el)).val();
       var period = $("#period", $(this.el)).val();
-
-      // var studentIDs = $("#student-ids", $(this.el)).val().split('.com/')[1];
-      var studentIDs = "BDTr71MTPOV27JFdH53M";
-      // var schoolIDs = $("#school-ids", $(this.el)).val().split('.com/')[1];
-      var schoolIDs = "1kWBe97fTUGY4JQaVv8c";
+      var studentIDs = $("#student-ids", $(this.el)).val().split('.com/')[1];
+      var schoolIDs = $("#school-ids", $(this.el)).val().split('.com/')[1];
       var studentMap = {};
       var schoolMap = {};
       var studentIDMap = {};
@@ -52,8 +49,10 @@ window.TermsView = Backbone.View.extend({
             for (var i = 1; i < lines.length; i++) {
               var lowerLine = lines[i].toLowerCase();
               var student = lowerLine.split(",");
-              studentMap[student[1]+"_"+student[2]] = student[3];
-              studentIDMap[student[1]+"_"+student[2]] = student[4];
+              var studentID = student[3].replace(/(\r\n|\n|\r)/gm,"");
+              var schoolID = student[4].replace(/(\r\n|\n|\r)/gm,"");
+              studentMap[student[1]+"_"+student[2]] = studentID;
+              studentIDMap[student[1]+"_"+student[2]] = schoolID;
             }
           }
         );
@@ -68,7 +67,8 @@ window.TermsView = Backbone.View.extend({
             for (var i = 1; i < lines.length; i++) {
               var lowerLine = lines[i].toLowerCase();
               var school = lowerLine.split(",");
-              schoolMap[school[0]] = school[1];
+              var schoolCode = school[1].replace(/(\r\n|\n|\r)/gm,"");
+              schoolMap[school[0]] = schoolCode;
             }
           }
         );

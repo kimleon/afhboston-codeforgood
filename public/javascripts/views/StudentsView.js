@@ -93,6 +93,7 @@ window.StudentsView = Backbone.View.extend({
     var studentSize = this.studentSize;
     var studentMap = this.studentMap;
     var schoolMap = this.schoolMap;
+    var studentIDMap = this.studentIDMap;
 
     var self = this;
     if (firstName == "") {
@@ -135,7 +136,7 @@ window.StudentsView = Backbone.View.extend({
               $('body').removeClass('modal-open');
               $('.modal-backdrop').remove();
               $('#content').html(new StudentsView({schoolYear: schoolYear, period: period, studentSize: allStudents.length,
-                 studentMap: studentMap, schoolMap: schoolMap}).el);
+                 studentMap: studentMap, schoolMap: schoolMap, studentIDMap: studentIDMap}).el);
             });
         },
         error: function (xhr, status, err) {
