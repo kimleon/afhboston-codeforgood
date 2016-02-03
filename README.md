@@ -39,8 +39,8 @@ note that **clicking refresh at any time will erase all data**
 
 3. Click "Start New Term" to redirect to the student page
 4. Click "Add New Student" for each new student
-⋅⋅4. enter the student's name, school, class names, and grades information (grades should be entered in the same order as their corresponding classes)
-⋅⋅4. the salesforce IDs, school ID, course level, and course type will be filled in automatically
-⋅⋅4. there is a student counter at the top left of the page if you'd like to check that you've entered all the students
+  4. enter the student's name, school, class names, and grades information (grades should be entered in the same order as their corresponding classes)
+  4. the salesforce IDs, school ID, course level, and course type will be filled in automatically
+  4. there is a student counter at the top left of the page if you'd like to check that you've entered all the students
 5. Once all the students are added, click "Download CSV"
 
