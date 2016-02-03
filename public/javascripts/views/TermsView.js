@@ -26,6 +26,7 @@ window.TermsView = Backbone.View.extend({
       var schoolIDs = "1kWBe97fTUGY4JQaVv8c";
       var studentMap = {};
       var schoolMap = {};
+      var studentIDMap = {};
 
       var studentBlob = {
         url: 'https://www.filepicker.io/api/file/'+studentIDs,
@@ -52,6 +53,7 @@ window.TermsView = Backbone.View.extend({
               var lowerLine = lines[i].toLowerCase();
               var student = lowerLine.split(",");
               studentMap[student[1]+"_"+student[2]] = student[3];
+              studentIDMap[student[1]+"_"+student[2]] = student[4];
             }
           }
         );
@@ -86,10 +88,10 @@ window.TermsView = Backbone.View.extend({
           url: "/terms",
           type: "POST",
           contentType: 'application/json; charset=utf-8',
-          data: JSON.stringify({schoolYear: schoolYear, period: period, students: [], studentMap: studentMap, schoolMap: schoolMap}),
+          data: JSON.stringify({schoolYear: schoolYear, period: period, students: [], studentMap: studentMap, schoolMap: schoolMap, studentIDMap: studentIDMap}),
           success: function(data) {
             $('#content').html(new StudentsView({schoolYear: schoolYear, period: period, studentSize: 0,
-              studentMap: studentMap, schoolMap: schoolMap}).el);
+              studentMap: studentMap, schoolMap: schoolMap, studentIDMap: studentIDMap}).el);
           },
           error: function(xhr, status, err) {
             $("#upload-term-errors", $(self.el)).text(err);

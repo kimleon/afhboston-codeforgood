@@ -5,6 +5,7 @@ window.StudentsView = Backbone.View.extend({
     this.studentSize = options.studentSize;
     this.studentMap = options.studentMap;
     this.schoolMap = options.schoolMap;
+    this.studentIDMap = options.studentIDMap;
     this.render();
   },
 
@@ -80,6 +81,7 @@ window.StudentsView = Backbone.View.extend({
 
     // Get schoolID and schoolCode from school dictionary
     var schoolID = "2";
+    // var schoolID = this.studentIDMap[studentKey];
     var schoolCode = schoolMap[schoolKey];
     // var schoolCode = this.schoolMap[schoolKey];
     if (schoolCode === undefined) {
