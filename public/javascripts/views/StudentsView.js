@@ -158,7 +158,7 @@ window.StudentsView = Backbone.View.extend({
       var fields = ["School Year","Period","First Name","Last Name","Participant ID","School ID","School","School Code","Course Name","Level","Grade","Class Category"];
       var fieldNames = ["firstName","lastName","participantID","schoolID","school","schoolCode"];
       var result = [];
-      var header = fields.slice(0, fields.length);
+      var header = fields.join(',');
       result.push(header);
       
       for (var i = 0; i < allStudents.length; i += 1) {
@@ -175,12 +175,11 @@ window.StudentsView = Backbone.View.extend({
           result.push([schoolYear, period, student.firstName, student.lastName, student.participantID, student.schoolID, student.school, student.schoolCode, course, level, grade, category].join(','));
         }
       }
-      console.log(result);
+      var finalString = result.join('\n');
 
       // Data URI
-      var csvData = 'data:text/csv;charset=UTF-8,' + encodeURIComponent(result);
+      var csvData = 'data:text/csv;charset=UTF-8,' + encodeURIComponent(finalString);
 
-      console.log(csvData);
       window.location.href = csvData;
     });
   },
