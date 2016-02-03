@@ -26,11 +26,11 @@ note that **clicking refresh at any time will erase all data**
 1. Enter School Year and Period
 2. Upload the Student Name to Student Salesforce ID csv and School Name to School Salesforce ID csv, which should have the following formats (1st row is labels, 2nd on are entries):
 
-    |  Full Name   |  First Name  |  Last Name  |  Contact ID  |  School ID  |
-    | ------------ | ------------ | ----------- | ------------ | ----------- |
-    | John Doe     | John         | Doe         | 003C000001Yp | 135786      |
-    | Jane Smith   | Jane         | Smith       | 003C000002Hq | 234567      |
-    | Rachel Green | Rachel       | Green       | 003C000001Td | 345656      |
+    |  Full Name   |  First Name  |  Last Name  |  Contact ID  |  
+    | ------------ | ------------ | ----------- | ------------ | 
+    | John Doe     | John         | Doe         | 003C000001Yp | 
+    | Jane Smith   | Jane         | Smith       | 003C000002Hq | 
+    | Rachel Green | Rachel       | Green       | 003C000001Td | 
 
     |  Organization Name  |  Organization ID  | 
     | ------------------- | ----------------- | 

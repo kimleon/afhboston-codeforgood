@@ -5,7 +5,6 @@ window.StudentsView = Backbone.View.extend({
     this.studentSize = options.studentSize;
     this.studentMap = options.studentMap;
     this.schoolMap = options.schoolMap;
-    this.studentIDMap = options.studentIDMap;
     this.render();
   },
 
@@ -64,8 +63,7 @@ window.StudentsView = Backbone.View.extend({
       participantID = "";
     }
 
-    // Get schoolID and schoolCode from student id dictionary and school dictionary
-    var schoolID = this.studentIDMap[studentKey];
+    // Get schoolCode from school dictionary
     var schoolCode = this.schoolMap[schoolKey];
     if (schoolCode === undefined) {
       schoolCode = "";
@@ -93,7 +91,6 @@ window.StudentsView = Backbone.View.extend({
     var studentSize = this.studentSize;
     var studentMap = this.studentMap;
     var schoolMap = this.schoolMap;
-    var studentIDMap = this.studentIDMap;
 
     var self = this;
     if (firstName == "") {
@@ -104,7 +101,7 @@ window.StudentsView = Backbone.View.extend({
       $("#new-student-errors", $(this.el)).text("Student is not in participant directory.");
     } else if (school == "") {
       $("#new-student-errors", $(this.el)).text("Please enter the school.");
-    } else if (schoolID == "" || schoolCode == "") {
+    } else if (schoolCode == "") {
       $("#new-student-errors", $(this.el)).text("School is not in school directory.");
     } else if (courseNames.length != grades.length) {
       $("#new-student-errors", $(this.el)).text("Please enter the same number of classes as grades.");
@@ -119,7 +116,6 @@ window.StudentsView = Backbone.View.extend({
           participantID: participantID,
           firstName: firstName,
           lastName: lastName,
-          schoolID: schoolID,
           school: school,
           schoolCode: schoolCode,
           courseNames: courseNames,
@@ -136,7 +132,7 @@ window.StudentsView = Backbone.View.extend({
               $('body').removeClass('modal-open');
               $('.modal-backdrop').remove();
               $('#content').html(new StudentsView({schoolYear: schoolYear, period: period, studentSize: allStudents.length,
-                 studentMap: studentMap, schoolMap: schoolMap, studentIDMap: studentIDMap}).el);
+                 studentMap: studentMap, schoolMap: schoolMap}).el);
             });
         },
         error: function (xhr, status, err) {
@@ -156,8 +152,8 @@ window.StudentsView = Backbone.View.extend({
       url:"/students",
       type:"GET"
     }).done(function(allStudents) {
-      var fields = ["School Year","Period","First Name","Last Name","Participant ID","School ID","School","School Code","Course Name","Level","Grade","Class Category"];
-      var fieldNames = ["firstName","lastName","participantID","schoolID","school","schoolCode"];
+      var fields = ["School Year","Period","First Name","Last Name","Participant ID","School","School Code","Course Name","Level","Grade","Class Category"];
+      var fieldNames = ["firstName","lastName","participantID","school","schoolCode"];
       var result = [];
       var header = fields.join(',');
       result.push(header);
@@ -173,7 +169,7 @@ window.StudentsView = Backbone.View.extend({
           var level = levels[j];
           var grade = grades[j];
           var category = categories[j];
-          result.push([schoolYear, period, student.firstName, student.lastName, student.participantID, student.schoolID, student.school, student.schoolCode, course, level, grade, category].join(','));
+          result.push([schoolYear, period, student.firstName, student.lastName, student.participantID, student.school, student.schoolCode, course, level, grade, category].join(','));
         }
       }
       var finalString = result.join('\n');
@@ -199,31 +195,19 @@ window.StudentsView = Backbone.View.extend({
   },
 
   categorizeClass: function(courseName) {
-    var ARTS = ["studio", "visual"];
     var ENGLISH = ["english", "language"];
-    var FOREIGN_LANG = ["spanish", "french", "latin"];
-    var HISTORY = ["history", "government"];
-    var MATH = ["math", "mathematics", "algebra", "trigonometry", "calculus"];
+    var SOCIAL_STUDIES = ["history", "government","humanities","political"];
+    var MATH = ["math", "mathematics", "algebra", "trigonometry", "calculus", "geometry","statistics"];
     var SCIENCE = ["science", "biology", "chemistry", "physics", "anatomy"];
 
-    for (var i = 0; i < ARTS; i++) {
-      if (courseName.indexOf(ARTS[i]) > -1) {
-        return "Arts";
-      }
-    }
     for (var i = 0; i < ENGLISH; i++) {
       if (courseName.indexOf(ENGLISH[i]) > -1) {
         return "English";
       }
     }
-    for (var i = 0; i < FOREIGN_LANG; i++) {
-      if (courseName.indexOf(FOREIGN_LANG[i]) > -1) {
-        return "Foreign Language";
-      }
-    } 
-    for (var i = 0; i < HISTORY; i++) {
-      if (courseName.indexOf(HISTORY[i]) > -1) {
-        return "History";
+    for (var i = 0; i < SOCIAL_STUDIES; i++) {
+      if (courseName.indexOf(SOCIAL_STUDIES[i]) > -1) {
+        return "Social Studies";
       }
     }
     for (var i = 0; i < MATH; i++) {

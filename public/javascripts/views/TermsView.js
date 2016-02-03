@@ -19,11 +19,12 @@ window.TermsView = Backbone.View.extend({
     e.preventDefault();
       var schoolYear = $("#school-year", $(this.el)).val();
       var period = $("#period", $(this.el)).val();
-      var studentIDs = $("#student-ids", $(this.el)).val().split('.com/')[1];
-      var schoolIDs = $("#school-ids", $(this.el)).val().split('.com/')[1];
+      // var studentIDs = $("#student-ids", $(this.el)).val().split('.com/')[1];
+      var studentIDs = "BDTr71MTPOV27JFdH53M";
+      var schoolIDs = "1kWBe97fTUGY4JQaVv8c";
+      // var schoolIDs = $("#school-ids", $(this.el)).val().split('.com/')[1];
       var studentMap = {};
       var schoolMap = {};
-      var studentIDMap = {};
 
       var studentBlob = {
         url: 'https://www.filepicker.io/api/file/'+studentIDs,
@@ -50,9 +51,7 @@ window.TermsView = Backbone.View.extend({
               var lowerLine = lines[i].toLowerCase();
               var student = lowerLine.split(",");
               var studentID = student[3].replace(/(\r\n|\n|\r)/gm,"");
-              var schoolID = student[4].replace(/(\r\n|\n|\r)/gm,"");
               studentMap[student[1]+"_"+student[2]] = studentID;
-              studentIDMap[student[1]+"_"+student[2]] = schoolID;
             }
           }
         );
@@ -88,10 +87,10 @@ window.TermsView = Backbone.View.extend({
           url: "/terms",
           type: "POST",
           contentType: 'application/json; charset=utf-8',
-          data: JSON.stringify({schoolYear: schoolYear, period: period, students: [], studentMap: studentMap, schoolMap: schoolMap, studentIDMap: studentIDMap}),
+          data: JSON.stringify({schoolYear: schoolYear, period: period, students: [], studentMap: studentMap, schoolMap: schoolMap}),
           success: function(data) {
             $('#content').html(new StudentsView({schoolYear: schoolYear, period: period, studentSize: 0,
-              studentMap: studentMap, schoolMap: schoolMap, studentIDMap: studentIDMap}).el);
+              studentMap: studentMap, schoolMap: schoolMap}).el);
           },
           error: function(xhr, status, err) {
             $("#upload-term-errors", $(self.el)).text(err);
