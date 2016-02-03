@@ -2,7 +2,7 @@
 <div class="navbar navbar-default navbar-fixed-top" style="z-index: 10;">
   <div class="navbar-inner">
     <div class="container">
-      <div class="col-md-6 text-right" id="restart">
+      <div class="col-md-12 text-right" id="restart">
         <button id="restart-button" type="submit" class="btn-sm pull-right">
           <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
         </button>
@@ -16,9 +16,11 @@
 <!-- Term Info -->
 <div class="row">
   <h1>Term</h1>
+  <br>
   <p><b>School Year: </b><%= schoolYear %></p>
   <p><b>Period: </b><%= period %></p>
   <p><b>Students: </b><%= studentSize %></p>
+  <br>
 </div>
 
 
@@ -102,11 +104,8 @@
 
 
 <!-- Download term -->
-<div class="col-md-6" id="download-term">
-  <h1>Download CSV</h1>
-  <button id="download-term-button" type="submit" class="btn-lg">
-    <span class="glyphicon glyphicon-download" aria-hidden="true"></span>
-  </button>
-</div>
+<button class="btn btn-primary" id="download-term-button" type="submit">
+  Download CSV
+</button>
 
 <div class="alert alert-danger" role="alert" id="restart-errors"></div>
