@@ -2,7 +2,8 @@ afhboston-codeforgood
 ==========
 Simple interface to assist streamlining the report card entering process at Artists for Humanity
 
-filepicker.io API key needed before running
+**filepicker.io API key needed before running**
+
 
 Running Locally:
 ```sh
