@@ -19,10 +19,8 @@ window.TermsView = Backbone.View.extend({
     e.preventDefault();
       var schoolYear = $("#school-year", $(this.el)).val();
       var period = $("#period", $(this.el)).val();
-      // var studentIDs = $("#student-ids", $(this.el)).val().split('.com/')[1];
-      var studentIDs = "BDTr71MTPOV27JFdH53M";
-      var schoolIDs = "1kWBe97fTUGY4JQaVv8c";
-      // var schoolIDs = $("#school-ids", $(this.el)).val().split('.com/')[1];
+      var studentIDs = $("#student-ids", $(this.el)).val().split('.com/')[1];
+      var schoolIDs = $("#school-ids", $(this.el)).val().split('.com/')[1];
       var studentMap = {};
       var schoolMap = {};
 
