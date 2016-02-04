@@ -7,7 +7,12 @@ var bodyParser = require('body-parser');
 var basicAuth = require('basic-auth-connect');
 var mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost/test');
+var uristring =
+    process.env.MONGOLAB_URI ||
+    process.env.MONGOHQ_URL ||
+    'mongodb://localhost/afh-grades';
+
+mongoose.connect(uristring);
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
