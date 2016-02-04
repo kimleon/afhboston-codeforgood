@@ -4,6 +4,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var basicAuth = require('basic-auth-connect');
 var mongoose = require('mongoose');
 
 mongoose.connect('mongodb://localhost/test');
@@ -14,6 +15,8 @@ var terms = require('./routes/terms');
 var students = require('./routes/students');
 
 var app = express();
+
+app.use(basicAuth('afh-username', 'afh-password'));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'public/templates'));
