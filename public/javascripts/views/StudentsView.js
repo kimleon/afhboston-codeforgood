@@ -167,7 +167,7 @@ window.StudentsView = Backbone.View.extend({
         for (var j = 0; j < courses.length; j += 1) {
           var course = courses[j];
           var level = levels[j];
-          var grade = grades[j];
+          var grade = grades[j].toUpperCase();;
           var category = categories[j];
           result.push([schoolYear, period, student.firstName, student.lastName, student.participantID, student.school, student.schoolCode, course, level, grade, category].join(','));
         }
@@ -185,9 +185,10 @@ window.StudentsView = Backbone.View.extend({
   /* Helper functions */
 
   findLevel: function(courseName) {
-    if (courseName.indexOf('AP') > -1) {
+    var lowerCaseCourse = courseName.toLowerCase();
+    if (lowerCaseCourse.indexOf('ap') === 0) {
       return "AP";
-    } else if (courseName.indexOf('Honors') > -1) {
+    } else if (lowerCaseCourse.indexOf('honor') !== -1) {
       return "Honors";
     } else {
       return "Regular";
@@ -195,28 +196,29 @@ window.StudentsView = Backbone.View.extend({
   },
 
   categorizeClass: function(courseName) {
-    var ENGLISH = ["english", "language"];
-    var SOCIAL_STUDIES = ["history", "government","humanities","political"];
+    var ENGLISH = ["english", "language","literature"];
+    var SOCIAL_STUDIES = ["history", "government","humanities","political","econ"];
     var MATH = ["math", "mathematics", "algebra", "trigonometry", "calculus", "geometry","statistics"];
     var SCIENCE = ["science", "biology", "chemistry", "physics", "anatomy"];
+    var lowerCaseCourse = courseName.toLowerCase();
 
-    for (var i = 0; i < ENGLISH; i++) {
-      if (courseName.indexOf(ENGLISH[i]) > -1) {
+    for (var i = 0; i < ENGLISH.length; i++) {
+      if (lowerCaseCourse.indexOf(ENGLISH[i]) !== -1) {
         return "English";
       }
     }
-    for (var i = 0; i < SOCIAL_STUDIES; i++) {
-      if (courseName.indexOf(SOCIAL_STUDIES[i]) > -1) {
+    for (var i = 0; i < SOCIAL_STUDIES.length; i++) {
+      if (lowerCaseCourse.indexOf(SOCIAL_STUDIES[i]) !== -1) {
         return "Social Studies";
       }
     }
-    for (var i = 0; i < MATH; i++) {
-      if (courseName.indexOf(MATH[i]) > -1) {
+    for (var i = 0; i < MATH.length; i++) {
+      if (lowerCaseCourse.indexOf(MATH[i]) !== -1) {
         return "Math";
       }
     }
-    for (var i = 0; i < SCIENCE; i++) {
-      if (courseName.indexOf(SCIENCE[i]) > -1) {
+    for (var i = 0; i < SCIENCE.length; i++) {
+      if (lowerCaseCourse.indexOf(SCIENCE[i]) !== -1) {
         return "Science";
       }
     }
