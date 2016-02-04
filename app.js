@@ -17,7 +17,6 @@ var students = require('./routes/students');
 var app = express();
 
 app.set('port', process.env.PORT || 3000);
-var server = app.listen(app.get('port'));
 
 app.use(basicAuth('afh-username', 'afh-password'));
 
