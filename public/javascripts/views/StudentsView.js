@@ -186,7 +186,7 @@ window.StudentsView = Backbone.View.extend({
 
   findLevel: function(courseName) {
     var lowerCaseCourse = courseName.toLowerCase();
-    if (lowerCaseCourse.indexOf('ap') === 0) {
+    if (lowerCaseCourse.indexOf('ap') === 0 || lowerCaseCourse.indexOf('advanced placement') === 0 || lowerCaseCourse.indexOf('advance placement') === 0) {
       return "AP";
     } else if (lowerCaseCourse.indexOf('honor') !== -1) {
       return "Honors";
@@ -196,20 +196,20 @@ window.StudentsView = Backbone.View.extend({
   },
 
   categorizeClass: function(courseName) {
-    var ENGLISH = ["english", "language","literature"];
     var SOCIAL_STUDIES = ["history", "government","humanities","political","econ"];
-    var MATH = ["math", "mathematics", "algebra", "trigonometry", "calculus", "geometry","statistics"];
+    var ENGLISH = ["english", "language","lit","reading","writing"];
+    var MATH = ["math", "mathematics", "alg", "trigonometry", "calc", "geometry","statistics"];
     var SCIENCE = ["science", "biology", "chemistry", "physics", "anatomy"];
     var lowerCaseCourse = courseName.toLowerCase();
 
-    for (var i = 0; i < ENGLISH.length; i++) {
-      if (lowerCaseCourse.indexOf(ENGLISH[i]) !== -1) {
-        return "English";
-      }
-    }
     for (var i = 0; i < SOCIAL_STUDIES.length; i++) {
       if (lowerCaseCourse.indexOf(SOCIAL_STUDIES[i]) !== -1) {
         return "Social Studies";
+      }
+    }
+    for (var i = 0; i < ENGLISH.length; i++) {
+      if (lowerCaseCourse.indexOf(ENGLISH[i]) !== -1) {
+        return "English";
       }
     }
     for (var i = 0; i < MATH.length; i++) {
