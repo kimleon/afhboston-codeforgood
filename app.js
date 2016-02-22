@@ -23,7 +23,7 @@ var app = express();
 
 app.set('port', process.env.PORT || 3000);
 
-app.use(basicAuth('afh-username', 'afh-password'));
+app.use(basicAuth('[REMOVED]', '[REMOVED]'));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'public/templates'));
