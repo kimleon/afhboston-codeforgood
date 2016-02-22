@@ -19,8 +19,8 @@ window.TermsView = Backbone.View.extend({
     e.preventDefault();
       var schoolYear = $("#school-year", $(this.el)).val();
       var period = $("#period", $(this.el)).val();
-      var studentIDs = $("#student-ids", $(this.el)).val().split('.com/')[1];
-      var schoolIDs = $("#school-ids", $(this.el)).val().split('.com/')[1];
+      var studentIDs = $("#student-ids", $(this.el)).val().split('/api/file/')[1];
+      var schoolIDs = $("#school-ids", $(this.el)).val().split('/api/file/')[1];
       var studentMap = {};
       var schoolMap = {};
 
@@ -44,7 +44,7 @@ window.TermsView = Backbone.View.extend({
         filepicker.read(
           studentBlob,
           function(data){
-            var lines = data.split("\n");
+            var lines = data.split(/\r\n|\n|\r/);
             for (var i = 1; i < lines.length; i++) {
               var lowerLine = lines[i].toLowerCase();
               var student = lowerLine.split(",");
@@ -60,7 +60,7 @@ window.TermsView = Backbone.View.extend({
         filepicker.read(
           schoolBlob,
           function(data){
-            var lines = data.split("\n");
+            var lines = data.split(/\r\n|\n|\r/);
             for (var i = 1; i < lines.length; i++) {
               var lowerLine = lines[i].toLowerCase();
               var school = lowerLine.split(",");
@@ -70,7 +70,6 @@ window.TermsView = Backbone.View.extend({
           }
         );
       }
-      
       var self = this;
       if (schoolYear === "") {
         $("#upload-term-errors", $(this.el)).text("Please enter the school year.");
