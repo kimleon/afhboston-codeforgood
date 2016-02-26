@@ -186,8 +186,10 @@ window.StudentsView = Backbone.View.extend({
 
   findLevel: function(courseName) {
     var lowerCaseCourse = courseName.toLowerCase();
-    if (lowerCaseCourse.indexOf('ap') === 0 || lowerCaseCourse.indexOf('advanced placement') === 0 || lowerCaseCourse.indexOf('advance placement') === 0) {
+    if (lowerCaseCourse.indexOf('ap') === 0 || lowerCaseCourse.indexOf('advanced placement') !== -1 || lowerCaseCourse.indexOf('advance placement') === 0) {
       return "AP";
+    } else if (lowerCaseCourse.indexOf('ib') === 0 || lowerCaseCourse.endsWith('ib')) {
+      return "Advanced";
     } else if (lowerCaseCourse.indexOf('honor') !== -1) {
       return "Honors";
     } else {
@@ -199,7 +201,7 @@ window.StudentsView = Backbone.View.extend({
     var SOCIAL_STUDIES = ["history", "government","humanities","political","econ"];
     var ENGLISH = ["english", "language","lit","reading","writing"];
     var MATH = ["math", "mathematics", "alg", "trigonometry", "calc", "geometry","statistics"];
-    var SCIENCE = ["science", "biology", "chemistry", "physics", "anatomy"];
+    var SCIENCE = ["science", "biology", "chemistry", "physics", "anatomy", "astronomy"];
     var lowerCaseCourse = courseName.toLowerCase();
 
     for (var i = 0; i < SOCIAL_STUDIES.length; i++) {
