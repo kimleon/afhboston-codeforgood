@@ -46,10 +46,10 @@ window.TermsView = Backbone.View.extend({
           function(data){
             var lines = data.split(/\r\n|\n|\r/);
             for (var i = 1; i < lines.length; i++) {
-              var lowerLine = lines[i].toLowerCase();
-              var student = lowerLine.split(",");
+              var currentLine = lines[i];
+              var student = currentLine.split(",");
               var studentID = student[3].replace(/(\r\n|\n|\r)/gm,"");
-              studentMap[student[1]+"_"+student[2]] = studentID;
+              studentMap[student[1].toLowerCase()+"_"+student[2].toLowerCase()] = studentID;
             }
           }
         );
@@ -62,10 +62,10 @@ window.TermsView = Backbone.View.extend({
           function(data){
             var lines = data.split(/\r\n|\n|\r/);
             for (var i = 1; i < lines.length; i++) {
-              var lowerLine = lines[i].toLowerCase();
-              var school = lowerLine.split(",");
+              var currentLine = lines[i];
+              var school = currentLine.split(",");
               var schoolCode = school[1].replace(/(\r\n|\n|\r)/gm,"");
-              schoolMap[school[0]] = schoolCode;
+              schoolMap[school[0].toLowerCase()] = schoolCode;
             }
           }
         );
